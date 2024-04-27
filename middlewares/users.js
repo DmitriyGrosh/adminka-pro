@@ -36,9 +36,18 @@ const updateUser = async (req, res, next) => {
   }
 };
 
+const checkEmptyNameAndEmail = async (req, res, next) => {
+  if (!req.body.username || !req.body.email) {
+    res.status(400).send({ message: "Введите имя и email" });
+  } else {
+    next();
+  }
+};
+
 module.exports = {
   findAllUsers,
   findUserById,
   createUser,
-  updateUser
+  updateUser,
+  checkEmptyNameAndEmail
 };

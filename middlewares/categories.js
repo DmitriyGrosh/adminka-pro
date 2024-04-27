@@ -36,9 +36,18 @@ const createCategory = async (req, res, next) => {
   }
 };
 
+const checkEmptyName = async (req, res, next) => {
+  if (!req.body.name) {
+    res.status(400).send({ message: "Введите название категории" });
+  } else {
+    next();
+  }
+};
+
 module.exports = {
   findAllCategories,
   findCategoryById,
   createCategory,
-  updateCategory
+  updateCategory,
+  checkEmptyName
 };

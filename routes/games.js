@@ -1,10 +1,10 @@
 const gamesRouter = require('express').Router();
 
-const { findAllGames, createGame, updateGame } = require('../middlewares/games');
+const { findAllGames, createGame, updateGame, findGameById } = require('../middlewares/games');
 const { sendAllGames, sendGameCreated, sendGameUpdated } = require('../controllers/games');
 
 gamesRouter.get('/games', findAllGames, sendAllGames);
 gamesRouter.post('/games', createGame, sendGameCreated);
-gamesRouter.put('/games/:id', updateGame, sendGameUpdated);
+gamesRouter.put('/games/:id', findGameById, updateGame, sendGameUpdated);
 
 module.exports = gamesRouter;
