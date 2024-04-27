@@ -5,7 +5,7 @@ const { sendAllGames, sendGameCreated, sendGameUpdated, sendGameDeleted } = requ
 
 gamesRouter.get('/games', findAllGames, sendAllGames);
 gamesRouter.post('/games', createGame, sendGameCreated);
-gamesRouter.put('/games/:id', findGameById, updateGame, sendGameUpdated);
+gamesRouter.put('/games/:id', updateGame, sendGameUpdated);
 gamesRouter.delete('/games/:id', deleteGame, sendGameDeleted);
 
 module.exports = gamesRouter;

@@ -36,6 +36,7 @@ const findGameById = async (req, res, next) => {
 
 const updateGame = async (req, res, next) => {
   try {
+    console.log(req.body)
     req.game = await games.findByIdAndUpdate(req.params.id, req.body);
     next();
   } catch (error) {
