@@ -15,6 +15,16 @@ const findCategoryById = async (req, res, next) => {
   }
 };
 
+const updateCategory = async (req, res, next) => {
+  console.log("PUT /categories/:id");
+  try {
+    req.category = await categories.findByIdAndUpdate(req.params.id, req.body);
+    next();
+  } catch (error) {
+    res.status(400).send({ message: "Error updating category" });
+  }
+};
+
 const createCategory = async (req, res, next) => {
   console.log("POST /categories");
   try {
@@ -29,5 +39,6 @@ const createCategory = async (req, res, next) => {
 module.exports = {
   findAllCategories,
   findCategoryById,
-  createCategory
+  createCategory,
+  updateCategory
 };

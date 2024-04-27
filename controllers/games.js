@@ -8,7 +8,13 @@ const sendGameCreated = (req, res) => {
   res.end(JSON.stringify(req.game));
 };
 
+const sendGameUpdated = (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  res.end({ message: "Игра обновлена" });
+};
+
 module.exports = {
   sendAllGames,
-  sendGameCreated
+  sendGameCreated,
+  sendGameUpdated
 };

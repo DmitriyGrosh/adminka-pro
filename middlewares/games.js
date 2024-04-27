@@ -22,7 +22,30 @@ const createGame = async (req, res, next) => {
   }
 };
 
+const findGameById = async (req, res, next) => {
+  try {
+    req.game = await games
+      .findById(req.params.id)
+      .populate("categories")
+      .populate("users");
+    next();
+  } catch (error) {
+    res.status(404).send({ message: "Игра не найдена" });
+  }
+};
+
+const updateGame = async (req, res, next) => {
+  try {
+    req.game = await games.findByIdAndUpdate(req.params.id, req.body);
+    next();
+  } catch (error) {
+    res.status(400).send({ message: "Ошибка обновления игры" });
+  }
+};
+
 module.exports = {
   findAllGames,
-  createGame
+  createGame,
+  findGameById,
+  updateGame
 };
