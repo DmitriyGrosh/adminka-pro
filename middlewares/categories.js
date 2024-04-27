@@ -44,10 +44,21 @@ const checkEmptyName = async (req, res, next) => {
   }
 };
 
+const deleteCategory = async (req, res, next) => {
+  console.log("DELETE /categories/:id");
+  try {
+    req.category = await categories.findByIdAndDelete(req.params.id);
+    next();
+  } catch (error) {
+    res.status(400).send({ message: "Error deleting category" });
+  }
+};
+
 module.exports = {
   findAllCategories,
   findCategoryById,
   createCategory,
   updateCategory,
-  checkEmptyName
+  checkEmptyName,
+  deleteCategory
 };

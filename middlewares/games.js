@@ -43,9 +43,19 @@ const updateGame = async (req, res, next) => {
   }
 };
 
+const deleteGame = async (req, res, next) => {
+  try {
+    req.game = await games.findByIdAndDelete(req.params.id);
+    next();
+  } catch (error) {
+    res.status(400).send({ message: "Ошибка при удалении игры" });
+  }
+};
+
 module.exports = {
   findAllGames,
   createGame,
   findGameById,
-  updateGame
+  updateGame,
+  deleteGame
 };

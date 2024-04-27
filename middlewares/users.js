@@ -44,10 +44,21 @@ const checkEmptyNameAndEmail = async (req, res, next) => {
   }
 };
 
+const deleteUser = async (req, res, next) => {
+  console.log("DELETE /users/:id");
+  try {
+    req.user = await users.findByIdAndDelete(req.params.id);
+    next();
+  } catch (error) {
+    res.status(400).send({ message: "Error deleting user" });
+  }
+};
+
 module.exports = {
   findAllUsers,
   findUserById,
   createUser,
   updateUser,
-  checkEmptyNameAndEmail
+  checkEmptyNameAndEmail,
+  deleteUser
 };

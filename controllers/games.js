@@ -13,8 +13,14 @@ const sendGameUpdated = (req, res) => {
   res.end({ message: "Игра обновлена" });
 };
 
+const sendGameDeleted = (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  res.end(JSON.stringify(req.game));
+};
+
 module.exports = {
   sendAllGames,
   sendGameCreated,
-  sendGameUpdated
+  sendGameUpdated,
+  sendGameDeleted
 };
