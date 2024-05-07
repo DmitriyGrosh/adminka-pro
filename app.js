@@ -7,6 +7,7 @@ const connectToDatabase = require('./database/connect');
 const gamesRouter = require('./routes/games');
 const categoriesRouter = require('./routes/categories');
 const usersRouter = require('./routes/users');
+const authRouter = require('./routes/auth');
 
 const PORT = 3000;
 
@@ -19,7 +20,8 @@ app.use(
 	express.static(path.join(__dirname, 'public')),
 	usersRouter, 
   gamesRouter, 
-  categoriesRouter
+  categoriesRouter,
+  authRouter
 );
 
 app.listen(PORT, () => {

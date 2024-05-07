@@ -1,4 +1,5 @@
 const users = require('../models/user');
+const bcrypt = require("bcryptjs");
 
 const findAllUsers = async (req, res, next) => {
   req.usersArray = await users.find({});
@@ -54,11 +55,26 @@ const deleteUser = async (req, res, next) => {
   }
 };
 
+const hashPassword = async (req, res, next) => {
+  try {
+    // Создаем случайную строку длиной в десять символов
+    const salt = await bcrypt.genSalt(10);
+    // Хешируем пароль
+    const hash = await bcrypt.hash(req.body.password, salt);
+    // Полученный в запросе пароль подменяем на хеш
+    req.body.password = hash;
+    next();
+  } catch (error) {
+    res.status(400).send({ message: "Ошибка хеширования пароля" });
+  }
+};
+
 module.exports = {
   findAllUsers,
   findUserById,
   createUser,
   updateUser,
   checkEmptyNameAndEmail,
-  deleteUser
+  deleteUser,
+  hashPassword
 };
