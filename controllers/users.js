@@ -1,6 +1,11 @@
 const sendAllUsers = (req, res) => {
-  res.setHeader('Content-Type', 'application/json');
+  res.setHeader("Content-Type", "application/json");
   res.end(JSON.stringify(req.usersArray));
+};
+
+const sendUserById = (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  res.end(JSON.stringify(req.user));
 };
 
 const sendUserCreated = (req, res) => {
@@ -10,7 +15,7 @@ const sendUserCreated = (req, res) => {
 
 const sendUserUpdated = (req, res) => {
   res.setHeader("Content-Type", "application/json");
-  res.end(JSON.stringify({ message: "Пользователь обновлен" }));
+  res.end("User updated");
 };
 
 const sendUserDeleted = (req, res) => {
@@ -18,8 +23,10 @@ const sendUserDeleted = (req, res) => {
   res.end(JSON.stringify(req.user));
 };
 
+
 module.exports = {
   sendAllUsers,
+  sendUserById,
   sendUserCreated,
   sendUserUpdated,
   sendUserDeleted

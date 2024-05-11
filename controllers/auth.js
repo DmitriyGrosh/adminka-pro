@@ -1,34 +1,18 @@
-const users = require('../models/user')
-const bcrypt = require("bcryptjs");
+const users = require('../models/user.js')
 
 const login = (req, res) => {
   const { email, password } = req.body;
 
   users
-    .findOne({ email })
-    .then(user => {
-      if (!user) {
-        return Promise.reject(new Error("Неправильные почта или пароль"));
-      }
-      // Сравниваем переданный пароль и хеш из базы
-      return bcrypt.compare(password, user.password).then(matched => {
-        if (!matched) {
-          // Хеши не совпали — отклоняем промис
-          return Promise.reject(new Error("Неправильные почта или пароль"));
-        }
-        // Аутентификация успешна
-        return user; // Теперь user доступен
-      });
-    })
-    .then((user) => {
+    .findUserByCredentials(email, password)
+    .then(({ user, token }) => {
       res
         .status(200)
-        .send({ _id: user._id, username: user.username, email: user.email });
+        .send({ _id: user._id, username: user.username, email: user.email, jwt: token });
     })
     .catch(error => {
       res.status(401).send({ message: error.message });
     });
 };
 
-// Не забываем экспортирвать функцию 
-module.exports = { login };
+module.exports = { login }
